@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>快速上手</title>
     <script src="../lib/umd/my-single-spa.js"></script>
     <script>
         // 加载app
@@ -56,23 +56,17 @@
                 }
             };
 
-            // 注册app
-            mySingleSpa.registerApplication('app1', loadAppPromise(APP1), location => location.hash === '#/app1')
-                .then(a => console.log('registerApplication:', a)).catch(ex => console.error(ex));
-
-            mySingleSpa.registerApplication('app2', loadAppPromise(APP2), location => location.hash === '#/app2')
-                .then(a => console.log('registerApplication:', a))
-                .catch(ex => console.error(ex));
+            // 注册app1和app2
+            mySingleSpa.registerApplication('app1', loadAppPromise(APP1), location => location.hash === '#/app1');
+            mySingleSpa.registerApplication('app2', loadAppPromise(APP2), location => location.hash === '#/app2');
 
             // 启动
-            mySingleSpa.start()
-                .then(a => console.log('start:', a))
-                .catch(ex => console.error(ex));
-
+            mySingleSpa.start();
         })(window);
     </script>
 </head>
 <body>
+<div></div>
 <div style="text-align: center;padding: 10px;background: #ccc;">
     <a href="#/app1">click to app1</a> | <a href="#/app2">click to app2</a>
 </div>

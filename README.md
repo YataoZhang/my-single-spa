@@ -11,9 +11,13 @@ $ npm i
 ```shell
 $ npm run watch
 ```
-然后在浏览器中访问： http://localhost:10001/showcase/simple.html
+然后在浏览器中访问： http://localhost:10001/toutrial/quick/index.html
 
 ## 开发模式
 ```shell
 $ npm run build:dev
 ```
+
+## 待续
+1、支持Vue、React混合部署
+2、除目前支持的路由级别的app隔离外，还支持功能（Feature）级隔离

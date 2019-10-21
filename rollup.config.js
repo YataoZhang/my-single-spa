@@ -25,7 +25,7 @@ export default {
         process.env.SERVE ? serve({
             open: true,
             contentBase: '',
-            openPage: '/showcase/simple.html',
+            openPage: '/toutrial/quick/index.html',
             host: 'localhost',
             port: 10001
         }) : null
