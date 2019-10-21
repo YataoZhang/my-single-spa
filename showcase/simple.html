@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/umd/my-single-spa.js"></script>
+    <script>
+        // 加载app
+        function loadAppPromise(app) {
+            return () => new Promise((resolve, reject) => {
+                setTimeout(function () {
+                    resolve({
+                        bootstrap: [app.bootstrap],
+                        mount: [app.mount],
+                        unmount: [app.unmount],
+                        unload: [app.unload]
+                    });
+                }, 1000);
+            });
+        }
+    </script>
+    <script>
+        (async (global) => {
+            const mySingleSpa = global.mySingleSpa;
+            const APP1 = {
+                container: null,
+                bootstrap: async (props) => {
+                    this.container = document.getElementById('app');
+                    this.container.innerHTML = 'bootstrapping'
+                },
+                mount: async (props) => {
+                    this.container.innerHTML = 'hello my-single-spa; <br> this content made for app1!';
+                },
+                unmount: async (props) => {
+                    this.container.innerHTML = '';
+                },
+                unload: async (props) => {
+                    delete this.container;
+                }
+            };
+
+            const APP2 = {
+                container: null,
+                bootstrap: async (props) => {
+                    this.container = document.getElementById('app');
+                    this.container.innerHTML = 'bootstrapping'
+                },
+                mount: async (props) => {
+                    this.container.innerHTML = 'hello my-single-spa; <br> this content made for app2!';
+                },
+                unmount: async (props) => {
+                    this.container.innerHTML = '';
+                },
+                unload: async (props) => {
+                    delete this.container;
+                }
+            };
+
+            // 注册app
+            mySingleSpa.registerApplication('app1', loadAppPromise(APP1), location => location.hash === '#/app1')
+                .then(a => console.log('registerApplication:', a)).catch(ex => console.error(ex));
+
+            mySingleSpa.registerApplication('app2', loadAppPromise(APP2), location => location.hash === '#/app2')
+                .then(a => console.log('registerApplication:', a))
+                .catch(ex => console.error(ex));
+
+            // 启动
+            mySingleSpa.start()
+                .then(a => console.log('start:', a))
+                .catch(ex => console.error(ex));
+
+        })(window);
+    </script>
+</head>
+<body>
+<div style="text-align: center;padding: 10px;background: #ccc;">
+    <a href="#/app1">click to app1</a> | <a href="#/app2">click to app2</a>
+</div>
+<div id="app" style="padding: 10px;border: 1px solid;margin: 10px;"></div>
+</body>
+</html>
