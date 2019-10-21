@@ -13,6 +13,11 @@ $ npm run watch
 ```
 然后在浏览器中访问： http://localhost:10001/toutrial/quick/index.html
 
+当前已支持：
+1. 简单的快速上手
+2. systemjs
+3. Vuejs
+
 ## 开发模式
 ```shell
 $ npm run build:dev

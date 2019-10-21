@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>systemjs快速上手</title>
+    <script src="../../lib/umd/my-single-spa.js"></script>
+    <script type="systemjs-importmap">
+    {
+      "imports": {
+        "app1": "http://localhost:10001/toutrial/systemjs/app1.js",
+        "app2": "http://localhost:10001/toutrial/systemjs/app2.js"
+      }
+    }
+
+    </script>
+    <script src="https://unpkg.com/import-map-overrides@1.7.2/dist/import-map-overrides.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/system.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/amd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-exports.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-register.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/use-default.min.js"></script>
+    <script>
+        ((global) => {
+            const mySingleSpa = global.mySingleSpa;
+
+            // 注册app1和app2
+            mySingleSpa.registerApplication('app1', () => System.import('app1'), location => location.hash === '#/app1');
+            mySingleSpa.registerApplication('app2', () => System.import('app2'), location => location.hash === '#/app2');
+
+            // 启动
+            mySingleSpa.start();
+        })(window);
+    </script>
+</head>
+<body>
+<div>
+    <a href="/toutrial/quick/index.html">查看简易上手</a>
+    -
+    <a href="/toutrial/systemjs/index.html">查看systemjs版本</a>
+    -
+    <a href="/toutrial/vue/index.html">查看Vuejs版本</a>
+</div>
+<div style="text-align: center;padding: 10px;background: #ccc;margin: 10px">
+    <a href="#/app1">click to app1</a> | <a href="#/app2">click to app2</a>
+</div>
+<div id="app" style="padding: 10px;border: 1px solid;margin: 10px;"></div>
+</body>
+</html>
