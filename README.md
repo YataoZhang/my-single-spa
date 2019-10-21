@@ -11,7 +11,7 @@ $ npm i
 ```shell
 $ npm run watch
 ```
-然后在浏览器中访问： http://localhost:10001/showcase/simple.html#/app2
+然后在浏览器中访问： http://localhost:10001/showcase/simple.html
 
 ## 开发模式
 ```shell
