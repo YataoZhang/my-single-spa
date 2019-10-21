@@ -11,9 +11,9 @@ import {reasonableTime} from "../applications/timeouts";
 import {getProps} from "./helper";
 import {toUnmountPromise} from './unmount';
 
-export async function toMountPromise(app) {
+export function toMountPromise(app) {
     if (app.status !== NOT_MOUNTED) {
-        return app;
+        return Promise.resolve(app);
     }
 
     return reasonableTime(app.mount(getProps(app)), `app: ${app.name} mounting`, app.timeouts.mount).then(() => {

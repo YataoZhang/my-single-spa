@@ -10,9 +10,9 @@ import {MOUNTED, NOT_MOUNTED, SKIP_BECAUSE_BROKEN, UNMOUNTING} from "../applicat
 import {reasonableTime} from "../applications/timeouts";
 import {getProps} from "./helper";
 
-export async function toUnmountPromise(app) {
+export function toUnmountPromise(app) {
     if (app.status !== MOUNTED) {
-        return app;
+        return Promise.resolve(app);
     }
     app.status = UNMOUNTING;
 

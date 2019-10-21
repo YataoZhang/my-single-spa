@@ -16,7 +16,7 @@ import {callCapturedEvents} from './hijackLocations';
 let loadAppsUnderway = false;
 let pendingPromises = [];
 
-export async function invoke(pendings, eventArgs) {
+export function invoke(pendings, eventArgs) {
     if (loadAppsUnderway) {
         return new Promise((resolve, reject) => {
             pendingPromises.push({success: resolve, failure: reject, eventArgs});
@@ -31,7 +31,7 @@ export async function invoke(pendings, eventArgs) {
 
 
     // 找到需要load的app
-    async function loadApps() {
+    function loadApps() {
         let loadPromises = getAppsToLoad().map(toLoadPromise);
 
         return Promise.all(loadPromises).then(() => {
@@ -45,7 +45,7 @@ export async function invoke(pendings, eventArgs) {
 
 
     // 启动app
-    async function preformAppChanges() {
+    function preformAppChanges() {
         // getAppsToUnmount
         let unmountApps = getAppsToUnmount();
         let unmountPromises = Promise.all(unmountApps.map(toUnmountPromise));

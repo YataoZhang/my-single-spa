@@ -17,10 +17,10 @@ import {getProps, smellLikeAPromise, validateLifeCyclesFn, flattenFnArray} from 
 
 import {ensureAppTimeouts} from '../applications/timeouts';
 
-export async function toLoadPromise(app) {
+export function toLoadPromise(app) {
     // 状态不满足需要被load
     if (app.status !== NOT_LOADED && app.status !== LOAD_ERROR) {
-        return app;
+        return Promise.resolve(app);
     }
 
     app.status = LOAD_RESOURCE_CODE;
@@ -30,7 +30,7 @@ export async function toLoadPromise(app) {
     if (!smellLikeAPromise(loadPromise)) {
         console.log('app loadFunction must return a promise');
         app.status = SKIP_BECAUSE_BROKEN;
-        return app;
+        return Promise.resolve(app);
     }
 
     return loadPromise.then(module => {

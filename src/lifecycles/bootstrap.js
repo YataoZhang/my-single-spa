@@ -10,9 +10,9 @@ import {NOT_BOOTSTRAPPED, BOOTSTRAPPING, NOT_MOUNTED, SKIP_BECAUSE_BROKEN} from 
 import {reasonableTime} from '../applications/timeouts';
 import {getProps} from './helper';
 
-export async function toBootstrapPromise(app) {
+export function toBootstrapPromise(app) {
     if (app.status !== NOT_BOOTSTRAPPED) {
-        return app;
+        return Promise.resolve(app);
     }
 
     app.status = BOOTSTRAPPING;
