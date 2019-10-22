@@ -116,7 +116,8 @@ export function registerApplication(appName, applicationOrLoadFunction, activity
         loadApp: applicationOrLoadFunction,
         activityWhen,
         customProps,
-        status: NOT_LOADED
+        status: NOT_LOADED,
+        services: {}
     });
 
     return invoke();

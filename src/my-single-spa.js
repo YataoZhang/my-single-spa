@@ -6,6 +6,7 @@
 export {setBootstrapMaxTime, setMountMaxTime, setUnloadMaxTime, setUnmountMaxTime} from './applications/timeouts';
 export {registerApplication, getAppNames, getAppStatus, getRawApps} from './applications/apps'
 export {start} from './start';
+export {mountSystemService, getSystemService} from './services';
 export {
     NOT_LOADED,
     LOAD_RESOURCE_CODE,

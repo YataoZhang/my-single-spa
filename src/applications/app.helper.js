@@ -14,6 +14,8 @@ export const NOT_BOOTSTRAPPED = 'NOT_BOOTSTRAPPED';
 export const BOOTSTRAPPING = 'BOOTSTRAPPING';
 // 启动成功，未挂载
 export const NOT_MOUNTED = 'NOT_MOUNTED';
+// 挂载中
+export const MOUNTING = 'MOUNTING';
 // 挂载成功
 export const MOUNTED = 'MOUNTED';
 // 卸载中
@@ -22,6 +24,8 @@ export const UNMOUNTING = 'UNMOUNTING';
 export const SKIP_BECAUSE_BROKEN = 'SKIP_BECAUSE_BROKEN';
 // 加载时遇到致命错误
 export const LOAD_ERROR = 'LOAD_ERROR';
+// 更新service中
+export const UPDATING = 'UPDATING';
 
 
 export function notSkipped(app) {

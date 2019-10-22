@@ -2,18 +2,20 @@
  * @file
  * Created by zhangyatao on 2019/10/20.
  */
+
 'use strict';
 
 import * as mySingleSpa from '../my-single-spa';
+import {mountService} from "../services";
 
 export function getProps(app) {
-    const result = {
+    return {
         ...app.customProps,
         name: app.name,
-        ctx: mySingleSpa
+        // 将此方法传入app中，让app可以在内部自由挂载服务
+        mountService: mountService.bind(app),
+        mySingleSpa
     };
-
-    return result;
 }
 
 export function smellLikeAPromise(promise) {
@@ -58,7 +60,7 @@ export function flattenFnArray(fns, description) {
                     } else {
                         waitForPromises(index++);
                     }
-                }).catch((e)=>{
+                }).catch((e) => {
                     reject(e);
                 });
             }

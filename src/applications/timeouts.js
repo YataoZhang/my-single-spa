@@ -59,7 +59,7 @@ export function setUnloadMaxTime(milliseconds, rejectWhenTimeout = false) {
     DEFAULT_TIMEOUTS.unload = {milliseconds, rejectWhenTimeout};
 }
 
-export function ensureAppTimeouts(timeouts) {
+export function ensureAppTimeouts(timeouts = {}) {
     return {
         ...DEFAULT_TIMEOUTS,
         ...timeouts

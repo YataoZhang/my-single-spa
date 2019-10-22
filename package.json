@@ -2,7 +2,7 @@
   "name": "my-single-spa",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/my-single-spa.js",
   "scripts": {
     "build:dev": "rollup -c",
     "watch": "SERVE=true rollup -c -w"
