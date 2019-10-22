@@ -23,6 +23,14 @@ $ npm run watch
 $ npm run build:dev
 ```
 
+## ecosystem
+
+仅支持两种：
+
+1. [vue](https://github.com/YataoZhang/my-single-spa/blob/master/ecosystem/my-single-spa-vue.js)
+2. [React](https://github.com/YataoZhang/my-single-spa/blob/master/ecosystem/my-single-spa-react.js)
+
+
 ## 待续
 1. 支持Vue、React混合部署
 2. 除目前支持的路由级别的app隔离外，还支持功能（Feature）级隔离

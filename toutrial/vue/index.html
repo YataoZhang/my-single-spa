@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <title>Vue+systemjs快速上手</title>
     <script src="../../lib/umd/my-single-spa.js"></script>
+    <script src="../../ecosystem/my-single-spa-vue.js"></script>
     <script type="systemjs-importmap">
     {
       "imports": {
         "app1": "http://localhost:10001/toutrial/vue/app1.js",
         "app2": "http://localhost:10001/toutrial/vue/app2.js",
-        "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"
+        "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js",
+        "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.0.7/dist/vue-router.min.js"
       }
     }
     </script>
@@ -20,12 +22,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-exports.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-register.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/use-default.min.js"></script>
-    <script src="./my-single-spa-vue.js" type="text/javascript"></script>
     <script>
         ((global) => {
             const mySingleSpa = global.mySingleSpa;
-            Promise.all([System.import('vue')]).then(function (modules) {
+            Promise.all([System.import('vue'), System.import('vue-router')]).then(function (modules) {
                 window.Vue = modules[0];
+                window.VueRouter = modules[1];
+
+                Vue.use(VueRouter);
 
                 // 注册app1和app2
                 mySingleSpa.registerApplication('app1', () => System.import('app1'), location => location.hash === '#/app1');

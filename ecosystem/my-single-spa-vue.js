@@ -4,8 +4,36 @@
  */
 'use strict';
 (function (global) {
+    var PREFIX_ID = '#my-single-spa_';
+
+    function checkElement(boxId) {
+        var ele = boxId + ' #mss_container';
+        var div = null;
+
+        if (!document.querySelector(boxId)) {
+            div = document.createElement('div');
+            div.id = boxId.slice(1);
+            document.body.appendChild(div);
+        }
+
+        if (!document.querySelector(ele)) {
+            div = document.createElement('div');
+            div.id = 'mss_container';
+            document.querySelector(boxId).appendChild(div);
+        }
+
+        return ele;
+    }
+
+    function emptyElement(boxId) {
+        var box = document.querySelector(boxId);
+        if (box) {
+            box.innerHTML = '';
+        }
+    }
+
+
     var defaultOpts = {
-        // required opts
         Vue: null,
         appOptions: null,
         template: null,
@@ -16,16 +44,12 @@
         return Promise.resolve();
     }
 
-    function mount(opts, mountedInstances) {
+    function mount(opts, mountedInstances, props) {
         var el = opts.appOptions.el;
-        if (!el) {
-            opts.notHasEl = true;
-            var div = document.createElement('div');
-            div.id = 'my-single-spa_' + Math.random().toString(36).slice(2);
-            document.body.appendChild(div);
-            opts.appOptions.el = '#' + div.id;
+        var boxId = PREFIX_ID + props.name;
+        if (!el || String(el).indexOf(boxId) === 0) {
+            opts.appOptions.el = checkElement(boxId);
         }
-
 
         mountedInstances.instance = new opts.Vue(opts.appOptions);
 
@@ -37,13 +61,12 @@
 
     }
 
-    function unmount(opts, mountedInstances) {
+    function unmount(opts, mountedInstances, props) {
         mountedInstances.instance.$destroy();
         mountedInstances.instance.$el.innerHTML = '';
-        opts.notHasEl && (opts.appOptions.el = '');
+        emptyElement(PREFIX_ID + props.name);
         delete mountedInstances.instance;
         return Promise.resolve();
-
     }
 
     global.mySingleSpaVue = function (options) {
