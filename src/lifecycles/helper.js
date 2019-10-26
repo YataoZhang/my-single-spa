@@ -58,7 +58,7 @@ export function flattenFnArray(fns, description) {
                     if (index === fns.length - 1) {
                         resolve();
                     } else {
-                        waitForPromises(index++);
+                        waitForPromises(++index);
                     }
                 }).catch((e) => {
                     reject(e);
