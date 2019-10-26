@@ -25,7 +25,7 @@ export function invoke(pendings, eventArgs) {
 
     loadAppsUnderway = true;
     if (isStarted()) {
-        return preformAppChanges();
+        return performAppChanges();
     }
     return loadApps();
 
@@ -45,7 +45,7 @@ export function invoke(pendings, eventArgs) {
 
 
     // 启动app
-    function preformAppChanges() {
+    function performAppChanges() {
         // getAppsToUnmount
         let unmountApps = getAppsToUnmount();
         let unmountPromises = Promise.all(unmountApps.map(toUnmountPromise));
@@ -62,19 +62,17 @@ export function invoke(pendings, eventArgs) {
             return toBootstrapPromise(app).then(() => unmountPromises).then(() => toMountPromise(app));
         });
 
-        return unmountPromises.catch(e => {
+        return unmountPromises.then(() => {
+            callAllLocationEvents();
+            let loadAndMountPromises = loadPromises.concat(mountPromises);
+            return Promise.all(loadAndMountPromises).then(finish, ex => {
+                pendings.forEach(item => item.reject(ex));
+                throw ex;
+            });
+        }, e => {
             callAllLocationEvents();
             console.log(e);
             throw e;
-        }).then(() => {
-            callAllLocationEvents();
-            let loadAndMountPromises = loadPromises.concat(mountPromises);
-            return Promise.all(loadAndMountPromises).catch(ex => {
-                pendings.forEach(item => item.reject(ex));
-                throw ex;
-            }).then(() => {
-                return finish();
-            });
         });
     }
 

@@ -22,7 +22,7 @@ export function smellLikeAPromise(promise) {
     if (promise instanceof Promise) {
         return true;
     }
-    return typeof promise === 'function' && promise.then === 'function' && promise.catch === 'function';
+    return typeof promise === 'object' && promise.then === 'function' && promise.catch === 'function';
 }
 
 export function validateLifeCyclesFn(fn) {
