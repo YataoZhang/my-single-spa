@@ -2,6 +2,9 @@
 
 ![demo](https://github.com/yataoZhang/my-single-spa/raw/master/demo.gif)
 
+## 具体实现思路
+[手把手带你写微前端框架](https://github.com/YataoZhang/my-single-spa/issues/4)
+
 ## 前提
 ```shell
 $ npm i
